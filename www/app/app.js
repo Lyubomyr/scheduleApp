@@ -1,6 +1,6 @@
-angular.module('scheduleApp', ['ionic', 'ng-token-auth'])
+angular.module('scheduleApp', ['ionic', 'angular-cache', 'ng-token-auth'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, CacheFactory) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -10,6 +10,12 @@ angular.module('scheduleApp', ['ionic', 'ng-token-auth'])
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    CacheFactory("leagueDataCache", { storageMode: "localStorage", maxAge: 10000, deleteOnExpire: "aggressive" });
+    CacheFactory("leaguesCache", { storageMode: "localStorage", maxAge: 10000, deleteOnExpire: "aggressive" });
+    CacheFactory("myTeamsCache", { storageMode: "localStorage" });
+    CacheFactory("staticCache", { storageMode: "localStorage" });
+
   });
 })
 

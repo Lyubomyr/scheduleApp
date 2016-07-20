@@ -1,13 +1,13 @@
 (function() {
   'use strict';
-  angular.module('scheduleApp').controller('TeamDetailCtrl', ['$stateParams', 'scheduleApi', TeamDetailCtrl])
-  function TeamDetailCtrl($stateParams, scheduleApi) {
+  angular.module('scheduleApp').controller('TeamDetailCtrl', ['$stateParams', '$ionicPopup', 'scheduleApi', TeamDetailCtrl])
+  function TeamDetailCtrl($stateParams, $ionicPopup, scheduleApi) {
     var vm = this;
 
     vm.teamId = Number($stateParams.id);
     scheduleApi.getLeagueData().then(function(data){
 
-        var divisionTeams = _.flatMap(data.teams, 'divisionTeams')
+        var divisionTeams = _.flatMap(data.teams, 'divisionTeams');
         var team = _.find(divisionTeams, { "id": vm.teamId });
 
         vm.teamName = team.name;
